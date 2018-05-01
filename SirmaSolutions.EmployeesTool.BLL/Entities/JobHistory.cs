@@ -16,5 +16,7 @@ namespace SirmaSolutions.EmployeesTool.BLL.Entities
             _dateFrom = dateFrom;
             _dateTo = dateTo;
         }
+
+        public DateTime DateTo { get; }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using SirmaSolutions.EmployeesTool.BLL.Entities;
 using SirmaSolutions.EmployeesTool.BLL.Tests.Proxies;
 using System;
 
@@ -58,6 +59,17 @@ namespace SirmaSolutions.EmployeesTool.BLL.Tests.TextParsers
             });
 
             Assert.AreEqual("Invalid date to.", exception.Message);
+        }
+
+        [Test]
+        public void NullDateToIsCurrentDate()
+        {
+            DateTime currentDate = DateTime.Now;
+
+            
+            JobHistory record = _proxy.ParseLineTest("1, 1, 2013-11-01, 2015-11.01", dateTimeFormat);
+
+            Assert.AreEqual(currentDate.Year, record.);
         }
     }
 }

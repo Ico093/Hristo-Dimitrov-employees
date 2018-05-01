@@ -9,6 +9,8 @@ namespace SirmaSolutions.EmployeesTool.BLL.TextParsers
 {
     public class JobHistoryListParser
     {
+        private const string CurrentDateTimeString = "NULL";
+
         public List<JobHistory> ParseFile(StreamReader stream, string dateFormat)
         {
             List<JobHistory> jobHistoryList = new List<JobHistory>();
@@ -35,7 +37,7 @@ namespace SirmaSolutions.EmployeesTool.BLL.TextParsers
         {
             string[] splittedString = line.Split(',').Select(x=>x.Trim()).ToArray<string>();
             int employeeId, projectId;
-            DateTime dateFrom, dateTo;
+            DateTime dateFrom, dateTo = DateTime.Now;
 
             if (splittedString.Length != 4)
             {
@@ -57,9 +59,14 @@ namespace SirmaSolutions.EmployeesTool.BLL.TextParsers
                 throw new FormatException("Invalid date from.");
             }
 
-            if (!DateTime.TryParseExact(splittedString[3], dateFormat, CultureInfo.InvariantCulture, DateTimeStyles.None, out dateTo))
+            if (splittedString[3]!= CurrentDateTimeString && !DateTime.TryParseExact(splittedString[3], dateFormat, CultureInfo.InvariantCulture, DateTimeStyles.None, out dateTo))
             {
                 throw new FormatException("Invalid date to.");
+            }
+
+            if(splittedString[3] == CurrentDateTimeString)
+            {
+                dateTo = DateTime.Parse(DateTime.Now.ToShortDateString());
             }
 
             return new JobHistory(employeeId, projectId, dateFrom, dateTo);
