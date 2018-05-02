@@ -41,10 +41,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Class1.cs" />
+    <Compile Include="CommonProjectsCouplesFinder.cs" />
+    <Compile Include="Entities\CommonProjectsResult.cs" />
     <Compile Include="Entities\JobHistory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Readers\FileReader.cs" />
-    <Compile Include="Readers\Interfaces\IFileReader.cs" />
     <Compile Include="TextParsers\JobHistoryListParser.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

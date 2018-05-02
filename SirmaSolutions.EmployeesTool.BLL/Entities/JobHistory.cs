@@ -4,19 +4,17 @@ namespace SirmaSolutions.EmployeesTool.BLL.Entities
 {
     public class JobHistory
     {
-        private int _employeeId;
-        private int _projectId;
-        private DateTime _dateFrom;
-        private DateTime _dateTo;
-
         public JobHistory(int employeeId, int projectId, DateTime dateFrom, DateTime dateTo)
         {
-            _employeeId = employeeId;
-            _projectId = projectId;
-            _dateFrom = dateFrom;
-            _dateTo = dateTo;
+            EmployeeId = employeeId;
+            ProjectId = projectId;
+            DateFrom = dateFrom;
+            DateTo = dateTo;
         }
 
+        public int EmployeeId { get; }
+        public int ProjectId { get; }
+        public DateTime DateFrom { get; }
         public DateTime DateTo { get; }
     }
 }
