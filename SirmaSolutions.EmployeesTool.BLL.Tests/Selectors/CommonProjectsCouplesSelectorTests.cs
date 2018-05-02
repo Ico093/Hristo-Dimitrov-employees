@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Globalization;
 using NUnit.Framework;
 using SirmaSolutions.EmployeesTool.BLL.Entities;
+using SirmaSolutions.EmployeesTool.BLL.Selectors;
 
-namespace SirmaSolutions.EmployeesTool.BLL.Tests
+namespace SirmaSolutions.EmployeesTool.BLL.Tests.Selectors
 {
     [TestFixture]
-    public class CommonProjectsCouplesFinderTests
+    public class CommonProjectsCouplesSelectorTests
     {
-        private CommonProjectsCouplesFinder _finder;
+        private CommonProjectsCouplesSelector _selector;
 
         private DateTime GetDate(string date)
         {
@@ -19,7 +20,7 @@ namespace SirmaSolutions.EmployeesTool.BLL.Tests
         [OneTimeSetUp]
         public void OneTimeSetUp()
         {
-            _finder = new CommonProjectsCouplesFinder();
+            _selector = new CommonProjectsCouplesSelector();
         }
 
         [Test]
@@ -30,7 +31,7 @@ namespace SirmaSolutions.EmployeesTool.BLL.Tests
             jobHistories.Add(new JobHistory(1, 1, GetDate("11.02.2017"), GetDate("15.03.2017")));
             jobHistories.Add(new JobHistory(2, 2, GetDate("11.02.2017"), GetDate("15.03.2017")));
 
-            List<CommonProjectsResult> results = _finder.Find(jobHistories);
+            List<CommonProjectsResult> results = _selector.Select(jobHistories);
 
             Assert.AreEqual(0, results.Count);
         }
@@ -43,7 +44,7 @@ namespace SirmaSolutions.EmployeesTool.BLL.Tests
             jobHistories.Add(new JobHistory(1, 1, GetDate("11.02.2017"), GetDate("15.03.2017")));
             jobHistories.Add(new JobHistory(2, 1, GetDate("11.02.2018"), GetDate("15.03.2018")));
 
-            List<CommonProjectsResult> results = _finder.Find(jobHistories);
+            List<CommonProjectsResult> results = _selector.Select(jobHistories);
 
             Assert.AreEqual(0, results.Count);
         }
@@ -56,7 +57,7 @@ namespace SirmaSolutions.EmployeesTool.BLL.Tests
             jobHistories.Add(new JobHistory(1, 1, GetDate("11.02.2017"), GetDate("15.03.2017")));
             jobHistories.Add(new JobHistory(2, 1, GetDate("09.02.2017"), GetDate("20.02.2017")));
 
-            List<CommonProjectsResult> results = _finder.Find(jobHistories);
+            List<CommonProjectsResult> results = _selector.Select(jobHistories);
 
             Assert.AreEqual(1, results.Count);
             Assert.AreEqual(10, results[0].Days);
@@ -70,7 +71,7 @@ namespace SirmaSolutions.EmployeesTool.BLL.Tests
             jobHistories.Add(new JobHistory(1, 1, GetDate("11.02.2017"), GetDate("15.03.2017")));
             jobHistories.Add(new JobHistory(2, 1, GetDate("15.02.2017"), GetDate("24.02.2017")));
 
-            List<CommonProjectsResult> results = _finder.Find(jobHistories);
+            List<CommonProjectsResult> results = _selector.Select(jobHistories);
 
             Assert.AreEqual(1, results.Count);
             Assert.AreEqual(10, results[0].Days);

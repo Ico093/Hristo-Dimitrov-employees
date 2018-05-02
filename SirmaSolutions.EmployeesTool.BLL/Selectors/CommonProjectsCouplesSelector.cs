@@ -1,13 +1,14 @@
 ﻿using System;
-using SirmaSolutions.EmployeesTool.BLL.Entities;
 using System.Collections.Generic;
 using System.Linq;
+using SirmaSolutions.EmployeesTool.BLL.Entities;
+using SirmaSolutions.EmployeesTool.BLL.Selectors.Interfaces;
 
-namespace SirmaSolutions.EmployeesTool.BLL
+namespace SirmaSolutions.EmployeesTool.BLL.Selectors
 {
-    public class CommonProjectsCouplesFinder
+    public class CommonProjectsCouplesSelector: ICommonProjectsCouplesSelector
     {
-        public List<CommonProjectsResult> Find(IList<JobHistory> jobHistories)
+        public List<CommonProjectsResult> Select(IList<JobHistory> jobHistories)
         {
             if (jobHistories.Count == 0)
             {
@@ -51,11 +52,7 @@ namespace SirmaSolutions.EmployeesTool.BLL
 
                             if (commonProjectResults.ContainsKey(key))
                             {
-                                commonProjectResults[key].AddDays(days);
-                                if (!commonProjectResults[key].ProjectIds.Contains(jobHistory.ProjectId))
-                                {
-                                    commonProjectResults[key].ProjectIds.Add(jobHistory.ProjectId);
-                                }
+                                commonProjectResults[key].AddDays(jobHistory.ProjectId, days);
                             }
                             else
                             {
@@ -66,6 +63,7 @@ namespace SirmaSolutions.EmployeesTool.BLL
                         }
                     }
 
+                    passedJobHistories.Add(jobHistory);
                     passedJobHistories.RemoveRange(0, notRelevantCount);
                 }
             }

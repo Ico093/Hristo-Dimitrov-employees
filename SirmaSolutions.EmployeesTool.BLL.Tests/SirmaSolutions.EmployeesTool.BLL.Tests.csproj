@@ -47,7 +47,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CommonProjectsCouplesFinderTests.cs" />
+    <Compile Include="Selectors\CommonProjectsCouplesSelectorTests.cs" />
     <Compile Include="Proxies\JobHistoryListParserProxy.cs" />
     <Compile Include="TextParsers\JobHistoryListParserTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -1,11 +1,21 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.27428.2043
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SirmaSolutions.EmployeesTool.BLL", "SirmaSolutions.EmployeesTool.BLL\SirmaSolutions.EmployeesTool.BLL.csproj", "{0472F845-26C4-4F06-A48F-6AECC58DB33C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SirmaSolutions.EmployeesTool.BLL.Tests", "SirmaSolutions.EmployeesTool.BLL.Tests\SirmaSolutions.EmployeesTool.BLL.Tests.csproj", "{539F3346-584A-4CDF-875D-DF5C86A88ECA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SirmaSolutions.EmployeesTool.UI.Console", "SirmaSolutions.EmployeesTool.UI.Console\SirmaSolutions.EmployeesTool.UI.Console.csproj", "{4A4A25EB-15D3-46E2-A35C-33A58F1FD9C9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UI", "UI", "{E6D20DD3-4E1D-4855-B97F-29C0F3CC20ED}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{BDF5AF15-FDF5-4AED-B4E9-9528AF1240E7}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BLL", "BLL", "{4A7275C7-2E59-4735-9DB8-4EE7782814CE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SirmaSolutions.EmployeesTool.UI.WindowsTool", "SirmaSolutions.EmployeesTool.UI.WindowsTool\SirmaSolutions.EmployeesTool.UI.WindowsTool.csproj", "{FB10FFAD-7D56-4C55-8ABA-679285E35AD4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,9 +31,23 @@ Global
 		{539F3346-584A-4CDF-875D-DF5C86A88ECA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{539F3346-584A-4CDF-875D-DF5C86A88ECA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{539F3346-584A-4CDF-875D-DF5C86A88ECA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4A4A25EB-15D3-46E2-A35C-33A58F1FD9C9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4A4A25EB-15D3-46E2-A35C-33A58F1FD9C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4A4A25EB-15D3-46E2-A35C-33A58F1FD9C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4A4A25EB-15D3-46E2-A35C-33A58F1FD9C9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FB10FFAD-7D56-4C55-8ABA-679285E35AD4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FB10FFAD-7D56-4C55-8ABA-679285E35AD4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FB10FFAD-7D56-4C55-8ABA-679285E35AD4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FB10FFAD-7D56-4C55-8ABA-679285E35AD4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{0472F845-26C4-4F06-A48F-6AECC58DB33C} = {4A7275C7-2E59-4735-9DB8-4EE7782814CE}
+		{539F3346-584A-4CDF-875D-DF5C86A88ECA} = {BDF5AF15-FDF5-4AED-B4E9-9528AF1240E7}
+		{4A4A25EB-15D3-46E2-A35C-33A58F1FD9C9} = {E6D20DD3-4E1D-4855-B97F-29C0F3CC20ED}
+		{FB10FFAD-7D56-4C55-8ABA-679285E35AD4} = {E6D20DD3-4E1D-4855-B97F-29C0F3CC20ED}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {8CC36684-8EED-457A-B911-A5A560F0FDAE}

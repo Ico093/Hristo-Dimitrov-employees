@@ -4,10 +4,11 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using SirmaSolutions.EmployeesTool.BLL.TextParsers.Interfaces;
 
 namespace SirmaSolutions.EmployeesTool.BLL.TextParsers
 {
-    public class JobHistoryListParser
+    public class JobHistoryListParser: IJobHistoryTextParser
     {
         private const string CurrentDateTimeString = "NULL";
 
