@@ -69,7 +69,6 @@ namespace SirmaSolutions.EmployeesTool.BLL.Tests.TextParsers
             
             JobHistory record = _proxy.ParseLineTest("1, 1, 2013-11-01, 2015-11.01", dateTimeFormat);
 
-            Assert.AreEqual(currentDate.Year, record.);
         }
     }
 }

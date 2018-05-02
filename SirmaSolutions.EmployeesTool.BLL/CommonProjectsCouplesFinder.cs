@@ -1,4 +1,5 @@
-﻿using SirmaSolutions.EmployeesTool.BLL.Entities;
+﻿using System;
+using SirmaSolutions.EmployeesTool.BLL.Entities;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -13,55 +14,63 @@ namespace SirmaSolutions.EmployeesTool.BLL
                 return new List<CommonProjectsResult>();
             }
 
+            List<JobHistory> passedJobHistories = new List<JobHistory>();
             Dictionary<string, CommonProjectsResult> commonProjectResults = new Dictionary<string, CommonProjectsResult>();
 
             jobHistories = jobHistories.OrderBy(x => x.DateFrom).ThenBy(x => x.DateTo).ToList();
 
-            JobHistory currentJobHistory = jobHistories[0];
-            jobHistories.RemoveAt(0);
+            passedJobHistories.Add(jobHistories.First());
 
-            foreach (JobHistory jobHistory in jobHistories)
+            foreach (JobHistory jobHistory in jobHistories.Skip(1))
             {
-                int days;
-
-                if (currentJobHistory.ProjectId != jobHistory.ProjectId)
+                if (passedJobHistories.First().ProjectId != jobHistory.ProjectId)
                 {
-                    //Not fully inclusive
-                    if (!(currentJobHistory.DateTo >= jobHistory.DateTo))
-                    {
-                        currentJobHistory = jobHistory;
-                    }
-
-                    continue;
-                }
-
-                //Fully inclusive
-                if (currentJobHistory.DateTo >= jobHistory.DateTo)
-                {
-                    days = (jobHistory.DateTo - jobHistory.DateFrom).Days;
-                    continue;
-                }
-
-                //Partially inclusive
-                if (currentJobHistory.DateTo <= jobHistory.DateFrom)
-                {
-                    days = (jobHistory.DateFrom - currentJobHistory.DateTo).Days;
-                }
-
-
-                string key = CreateKey(currentJobHistory.EmployeeId, jobHistory.EmployeeId);
-
-                if (commonProjectResults.ContainsKey(key))
-                {
-                    commonProjectResults[key].AddDays(days);
+                    passedJobHistories.Clear();
+                    passedJobHistories.Add(jobHistory);
                 }
                 else
                 {
-                    commonProjectResults.Add(new CommonProjectsResult(currentJobHistory.EmployeeId, jobHistory.EmployeeId, currentJobHistory.ProjectId, days));
-                }
+                    int notRelevantCount = 0;
 
-                currentJobHistory = jobHistory;
+                    foreach (var passedJobHistory in passedJobHistories)
+                    {
+                        if (passedJobHistory.DateTo < jobHistory.DateFrom)
+                        {
+                            notRelevantCount++;
+                        }
+                        else
+                        {
+                            DateTime startDate = passedJobHistory.DateFrom > jobHistory.DateFrom
+                                ? passedJobHistory.DateFrom
+                                : jobHistory.DateFrom;
+                            DateTime endDate = passedJobHistory.DateTo < jobHistory.DateTo
+                                ? passedJobHistory.DateTo
+                                : jobHistory.DateTo;
+                            int days = (endDate - startDate).Days + 1;
+                            string key = CreateKey(passedJobHistory.EmployeeId, jobHistory.EmployeeId);
+
+                            if (commonProjectResults.ContainsKey(key))
+                            {
+                                commonProjectResults[key].AddDays(days);
+                                if (!commonProjectResults[key].ProjectIds.Contains(jobHistory.ProjectId))
+                                {
+                                    commonProjectResults[key].ProjectIds.Add(jobHistory.ProjectId);
+                                }
+                            }
+                            else
+                            {
+                                commonProjectResults.Add(key,
+                                    new CommonProjectsResult(passedJobHistory.EmployeeId, jobHistory.EmployeeId,
+                                        jobHistory.ProjectId, days));
+                            }
+                        }
+                    }
+
+                    passedJobHistories.RemoveRange(0, notRelevantCount);
+                }
             }
+
+            return commonProjectResults.Select(x=>x.Value).OrderByDescending(x=>x.Days).ToList();
         }
 
         protected string CreateKey(int key1, int key2)
