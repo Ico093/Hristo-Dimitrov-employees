@@ -67,8 +67,11 @@ namespace SirmaSolutions.EmployeesTool.BLL.Tests.TextParsers
             DateTime currentDate = DateTime.Now;
 
             
-            JobHistory record = _proxy.ParseLineTest("1, 1, 2013-11-01, 2015-11.01", dateTimeFormat);
+            JobHistory record = _proxy.ParseLineTest("1, 1, 2013-11-01, NULL", dateTimeFormat);
 
+            Assert.AreEqual(currentDate.Year, record.DateTo.Year);
+            Assert.AreEqual(currentDate.Month, record.DateTo.Month);
+            Assert.AreEqual(currentDate.Day, record.DateTo.Day);
         }
     }
 }
